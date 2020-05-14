@@ -1,0 +1,51 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"commonjs": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"airbnb",
+		"plugin:prettier/recommended",
+		"prettier/react",
+		"prettier/flowtype"
+	],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"jsx-a11y", //add this plugin in package.json
+		"import"
+	],
+	"rules": {
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"no-const-assign": "warn",
+		"no-this-before-super": "warn",
+		"no-undef": "warn",
+		"no-unreachable": "warn",
+		"no-unused-vars": "warn",
+		"constructor-super": "warn",
+		"valid-typeof": "warn",
+		"no-extra-semi": "warn",
+		"no-tabs": "off", // We want tabs in our file in other words cancel no, cancel off we get tabs is allowed
+		"indent": [0, "tab"],
+		"arrow-body-style": "off",
+		"react/jsx-indent": [0, "tab"], // 2, "tab"
+		"react/no-unescaped-entities": 0,
+		"no-console": 0,
+		"no-multi-spaces": "off"
+	}
+}
