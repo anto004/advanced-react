@@ -24,8 +24,6 @@ beforeEach(() => {
 
 // Expect li tag for each comment
 test("creates one li per comment", () => {
-	console.log(wrapper.find("li").debug());
-
 	const { comments } = initialState;
 	expect(wrapper.find("li").length).toEqual(comments.length);
 });

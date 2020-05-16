@@ -20,7 +20,6 @@ class CommentBox extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		// TODO: Save comment to store
 		// eslint-disable-next-line react/destructuring-assignment
 		this.props.dispatch(saveComment(101, this.state.comment));
 
@@ -36,6 +35,7 @@ class CommentBox extends Component {
 				<textarea value={comment} onChange={this.handleChange} />
 				<div>
 					<button type="submit">Submit</button>
+					<button type="button">Fetch Comments</button>
 				</div>
 			</form>
 		);
