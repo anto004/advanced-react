@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import saveComment from "actions";
+import { saveComment, fetchComments } from "actions";
+import fetchCommentsAPI from "utils/api";
 
 class CommentBox extends Component {
 	constructor(props) {
@@ -19,25 +20,41 @@ class CommentBox extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-
-		// eslint-disable-next-line react/destructuring-assignment
-		this.props.dispatch(saveComment(101, this.state.comment));
+		const { boundSaveComment } = this.props;
+		const { comment } = this.state;
+		boundSaveComment(101, comment);
 
 		this.setState({ comment: "" });
+	};
+
+	handleFetchComments = () => {
+		const { boundFetchComments } = this.props;
+
+		// API request
+		fetchCommentsAPI().then((results) => {
+			if (results) {
+				// Dipatch an action when api return results
+				boundFetchComments(results);
+			}
+		});
 	};
 
 	render() {
 		const { comment } = this.state;
 
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<h4>Add a Comment</h4>
-				<textarea value={comment} onChange={this.handleChange} />
-				<div>
-					<button type="submit">Submit</button>
-					<button type="button">Fetch Comments</button>
-				</div>
-			</form>
+			<div>
+				<form onSubmit={this.handleSubmit}>
+					<h4>Add a Comment</h4>
+					<textarea value={comment} onChange={this.handleChange} />
+					<div>
+						<button type="submit">Submit</button>
+					</div>
+				</form>
+				<button type="button" onClick={() => this.handleFetchComments()}>
+					Fetch Comments
+				</button>
+			</div>
 		);
 	}
 }
@@ -48,4 +65,11 @@ class CommentBox extends Component {
 //	};
 // };
 
-export default connect()(CommentBox);
+function dispatchStateToProps(dispatch) {
+	return {
+		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
+		bountFetchComments: (comments) => dispatch(fetchComments(comments)),
+	};
+}
+
+export default connect(null, dispatchStateToProps)(CommentBox);

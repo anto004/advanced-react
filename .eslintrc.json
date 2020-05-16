@@ -46,6 +46,7 @@
 		"react/jsx-indent": [0, "tab"], // 2, "tab"
 		"react/no-unescaped-entities": 0,
 		"no-console": 0,
-		"no-multi-spaces": "off"
+		"no-multi-spaces": "off",
+		"react/prop-types": "off"
 	}
 }
