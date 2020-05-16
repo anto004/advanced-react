@@ -5,23 +5,19 @@ import reducers from "reducers"; // This is from index.js
 import { ADD_COMMENT } from "actions/types";
 
 /* eslint-disable no-underscore-dangle */
-const store = createStore(
-	reducers,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = (initialState) =>
+	createStore(
+		reducers,
+		initialState,
+		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	);
 /* eslint-enable */
 
-console.log(store.getState());
-
-store.dispatch({
-	type: ADD_COMMENT,
-	id: 1234,
-	comment: "Hello there!",
-});
-
-console.log(store.getState());
+// console.log("Store: ", store({}));
 
 // Stateless function
-export default (props) => {
-	return <Provider store={store}>{props.children}</Provider>;
+// Set initialState for our CommentList testing purpose
+// If initialState is not passed, pass it an empty state
+export default ({ children, initialState = {} }) => {
+	return <Provider store={store(initialState)}>{children}</Provider>;
 };
