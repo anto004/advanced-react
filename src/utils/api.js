@@ -7,8 +7,9 @@ export default async function fetchCommentsAPI() {
 	const comments = axios
 		.get(url)
 		.then(function (response) {
+			console.log("API status: ", response.status);
+
 			// handle success
-			console.log(response);
 			return response.data;
 		})
 		.catch(function (error) {

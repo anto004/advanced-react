@@ -27,7 +27,7 @@ test("has a textarea and a button", () => {
 	expect(wrapper.find("textarea").length).toEqual(1);
 
 	// Expecting to find one submit button
-	expect(wrapper.find("button").length).toEqual(1);
+	expect(wrapper.find("button").length).toEqual(2);
 });
 
 /*
@@ -67,6 +67,7 @@ test("has a textarea that users can type in", () => {
 	The textarea clears out
 */
 test("when a submit button is clicked, textarea is cleared", () => {
+	// Populate our textarea
 	wrapper.find("textarea").simulate("change", {
 		target: { value: "hello!" },
 	});
@@ -74,11 +75,7 @@ test("when a submit button is clicked, textarea is cleared", () => {
 	wrapper.update();
 	expect(wrapper.find("textarea").prop("value")).toEqual("hello!");
 
-	const button = wrapper.find("button");
-	// Finding the right button
-	expect(button.prop("type")).toEqual("submit");
-
-	// button.simulate("click");
+	// After a submit button is clicked
 	wrapper.find("form").simulate("submit");
 
 	// Force re-render

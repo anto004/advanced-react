@@ -51,7 +51,11 @@ class CommentBox extends Component {
 						<button type="submit">Submit</button>
 					</div>
 				</form>
-				<button type="button" onClick={() => this.handleFetchComments()}>
+				<button
+					type="button"
+					className="fetch-comments"
+					onClick={() => this.handleFetchComments()}
+				>
 					Fetch Comments
 				</button>
 			</div>
@@ -68,7 +72,7 @@ class CommentBox extends Component {
 function dispatchStateToProps(dispatch) {
 	return {
 		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
-		bountFetchComments: (comments) => dispatch(fetchComments(comments)),
+		boundFetchComments: (comments) => dispatch(fetchComments(comments)),
 	};
 }
 
