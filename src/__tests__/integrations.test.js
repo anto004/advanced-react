@@ -34,7 +34,6 @@ test("can fetch a list of comments", (done) => {
 
 	// Find the fetch button
 	wrapper.find(".fetch-comments").simulate("click");
-	// console.log(wrapper.find(".fetch-comments").debug());
 
 	setTimeout(() => {
 		wrapper.update();

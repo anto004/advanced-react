@@ -8,22 +8,16 @@ import { ADD_COMMENT, FETCH_COMMENTS } from "actions/types";
 	]
 */
 export default function commentsReducer(state = [], action) {
-	const { type } = action;
+	const { type, comment } = action;
 	switch (type) {
 		case ADD_COMMENT:
-			return [
-				...state,
-				{
-					id: action.id,
-					comment: action.comment,
-				},
-			];
+			return [...state, comment];
 		case FETCH_COMMENTS:
 			// eslint-disable-next-line no-case-declarations
-			const comments = action.comments.map((comment) => {
+			const comments = action.comments.map((com) => {
 				return {
-					id: comment.id,
-					comment: comment.name,
+					id: com.id,
+					comment: com.name,
 				};
 			});
 			return state.concat(comments);

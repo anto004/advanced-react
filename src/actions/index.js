@@ -5,8 +5,7 @@ import { ADD_COMMENT, FETCH_COMMENTS } from "actions/types";
 export function saveComment(id, comment) {
 	return {
 		type: ADD_COMMENT,
-		id,
-		comment,
+		comment: { id, comment },
 	};
 }
 
