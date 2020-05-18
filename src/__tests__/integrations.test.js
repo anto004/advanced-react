@@ -35,7 +35,7 @@ test("can fetch a list of comments", (done) => {
 	// Find the fetch button
 	wrapper.find(".fetch-comments").simulate("click");
 
-	setTimeout(() => {
+	moxios.wait(() => {
 		wrapper.update();
 
 		// Expect to find a list of comments
@@ -43,5 +43,5 @@ test("can fetch a list of comments", (done) => {
 		done();
 
 		wrapper.unmount();
-	}, 100);
+	});
 });

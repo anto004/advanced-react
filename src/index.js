@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Root from "Root";
+import { BrowserRouter, Route } from "react-router-dom";
 import App from "./components/App";
 
 /*
@@ -12,7 +13,12 @@ import App from "./components/App";
 
 ReactDOM.render(
 	<Root>
-		<App />
+		{
+			// Route to Main Page(App component)
+		}
+		<BrowserRouter>
+			<Route path="/" component={App} />
+		</BrowserRouter>
 	</Root>,
 	document.getElementById("root")
 );
