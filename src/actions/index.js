@@ -1,4 +1,4 @@
-import { ADD_COMMENT, FETCH_COMMENTS } from "actions/types";
+import { ADD_COMMENT, FETCH_COMMENTS, CHANGE_AUTH } from "actions/types";
 
 // TODO: clean up code for action creators
 // Return comment object
@@ -13,5 +13,12 @@ export function fetchComments(comments) {
 	return {
 		type: FETCH_COMMENTS,
 		comments,
+	};
+}
+
+export function changeAuth(isLoggedIn) {
+	return {
+		type: CHANGE_AUTH,
+		isLoggedIn,
 	};
 }

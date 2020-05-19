@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Root from "Root";
 import { BrowserRouter, Route } from "react-router-dom";
-import App from "./components/App";
-
+import CommentBox from "components/CommentBox";
+import CommentList from "components/CommentList";
+import App from "components/App";
 /*
 	This is where we're supposed to place our Provider and createStore
 	For our test purposes, we need a helper component
@@ -13,11 +14,10 @@ import App from "./components/App";
 
 ReactDOM.render(
 	<Root>
-		{
-			// Route to Main Page(App component)
-		}
 		<BrowserRouter>
-			<Route path="/" component={App} />
+			{/* <Route path="/" exact component={App} /> */}
+			<Route path="/post" component={CommentBox} />
+			<Route path="/comments" component={CommentList} />
 		</BrowserRouter>
 	</Root>,
 	document.getElementById("root")
