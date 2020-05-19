@@ -15,7 +15,7 @@ import App from "components/App";
 ReactDOM.render(
 	<Root>
 		<BrowserRouter>
-			{/* <Route path="/" exact component={App} /> */}
+			<Route path="/" exact component={App} />
 			<Route path="/post" component={CommentBox} />
 			<Route path="/comments" component={CommentList} />
 		</BrowserRouter>

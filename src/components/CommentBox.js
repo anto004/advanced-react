@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { saveComment, fetchComments } from "actions";
 import fetchCommentsAPI from "utils/api";
+import CommentList from "components/CommentList";
 
 class CommentBox extends Component {
 	constructor(props) {
@@ -58,6 +59,7 @@ class CommentBox extends Component {
 				>
 					Fetch Comments
 				</button>
+				<CommentList />
 			</div>
 		);
 	}
