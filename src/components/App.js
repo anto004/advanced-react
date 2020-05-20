@@ -23,7 +23,7 @@ class App extends Component {
 
 		return (
 			<button type="button" onClick={() => this.handleLoggingIn()}>
-				{auth ? `Sign In` : `Sign Out`}
+				{auth ? `Sign Out` : `Sign In`}
 			</button>
 		);
 	}

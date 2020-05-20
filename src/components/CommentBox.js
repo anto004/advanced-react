@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveComment, fetchComments } from "actions";
+import { saveComment, fetchComments, changeAuth } from "actions";
 import fetchCommentsAPI from "utils/api";
 import CommentList from "components/CommentList";
 
@@ -8,6 +8,36 @@ class CommentBox extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { comment: " " };
+	}
+
+	// Component just got rendered
+	componentDidMount() {
+		console.log("ComponentDidMount: ");
+		this.shouldNavigateAway();
+	}
+
+	// Component after update
+	componentDidUpdate() {
+		console.log("ComponentDidUpdate: ");
+		this.shouldNavigateAway();
+	}
+
+	// helper method
+	// eslint-disable-next-line react/sort-comp
+	shouldNavigateAway() {
+		const { auth } = this.props;
+		if (!auth) {
+			console.log("Not logged In");
+			return true;
+		}
+
+		return false;
+	}
+
+	authenticateUser(auth) {
+		const { boundChangeAuth } = this.props;
+
+		boundChangeAuth(!auth);
 	}
 
 	handleChange = (event) => {
@@ -42,8 +72,13 @@ class CommentBox extends Component {
 
 	render() {
 		const { comment } = this.state;
+		const { auth } = this.props;
 
-		return (
+		return this.shouldNavigateAway() ? (
+			<button type="button" onClick={() => this.authenticateUser(auth)}>
+				Log In
+			</button>
+		) : (
 			<div>
 				<form onSubmit={this.handleSubmit}>
 					<h4>Add a Comment</h4>
@@ -65,17 +100,19 @@ class CommentBox extends Component {
 	}
 }
 
-// const mapStateToProps = (state) => {
-//	return {
-//		comments: state, // Pass all the array of comments in the state
-//	};
-// };
+const mapStateToProps = (state) => {
+	return {
+		auth: state.changeAuth,
+		// comments: state, // Pass all the array of comments in the state
+	};
+};
 
 function dispatchStateToProps(dispatch) {
 	return {
 		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
 		boundFetchComments: (comments) => dispatch(fetchComments(comments)),
+		boundChangeAuth: (auth) => dispatch(changeAuth(auth)),
 	};
 }
 
-export default connect(null, dispatchStateToProps)(CommentBox);
+export default connect(mapStateToProps, dispatchStateToProps)(CommentBox);
