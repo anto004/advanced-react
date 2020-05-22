@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { changeAuth } from "actions";
-import CommentBox from "./CommentBox";
-import CommentList from "./CommentList";
 
 // TODO: Create a main page in the App component
 // Navigate to CommentBox

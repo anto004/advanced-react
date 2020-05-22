@@ -47,6 +47,12 @@
 		"react/no-unescaped-entities": 0,
 		"no-console": 0,
 		"no-multi-spaces": "off",
-		"react/prop-types": "off"
+		"react/prop-types": "off",
+		"react/jsx-props-no-spreading": [
+			1,
+			{
+				"custom": "ignore"
+			}
+		]
 	}
 }

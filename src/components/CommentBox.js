@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { saveComment, fetchComments, changeAuth } from "actions";
 import fetchCommentsAPI from "utils/api";
 import CommentList from "components/CommentList";
+import requireAuth from "components/requireAuth";
 
 class CommentBox extends Component {
 	constructor(props) {
@@ -10,34 +11,8 @@ class CommentBox extends Component {
 		this.state = { comment: " " };
 	}
 
-	// Component just got rendered
-	componentDidMount() {
-		console.log("ComponentDidMount: ");
-		this.shouldNavigateAway();
-	}
-
-	// Component after update
 	componentDidUpdate() {
-		console.log("ComponentDidUpdate: ");
-		this.shouldNavigateAway();
-	}
-
-	// helper method
-	// eslint-disable-next-line react/sort-comp
-	shouldNavigateAway() {
-		const { auth } = this.props;
-		if (!auth) {
-			console.log("Not logged In");
-			return true;
-		}
-
-		return false;
-	}
-
-	authenticateUser(auth) {
-		const { boundChangeAuth } = this.props;
-
-		boundChangeAuth(!auth);
+		console.log("CommentBox componentDidUdate called");
 	}
 
 	handleChange = (event) => {
@@ -70,14 +45,25 @@ class CommentBox extends Component {
 		});
 	};
 
+	authenticateUser(auth) {
+		const { boundChangeAuth } = this.props;
+
+		boundChangeAuth(!auth);
+	}
+
 	render() {
 		const { comment } = this.state;
-		const { auth } = this.props;
+		const { isLoggedIn } = this.props;
+		console.log("isLoggedIn:", isLoggedIn);
 
-		return this.shouldNavigateAway() ? (
-			<button type="button" onClick={() => this.authenticateUser(auth)}>
-				Log In
-			</button>
+		// TODO: Create a HOC Log In button
+		return !isLoggedIn ? (
+			<div>
+				<h4>Please Login to Add Comments</h4>
+				<button type="button" onClick={() => this.authenticateUser(isLoggedIn)}>
+					Log In
+				</button>
+			</div>
 		) : (
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -100,13 +86,6 @@ class CommentBox extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		auth: state.changeAuth,
-		// comments: state, // Pass all the array of comments in the state
-	};
-};
-
 function dispatchStateToProps(dispatch) {
 	return {
 		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
@@ -115,4 +94,4 @@ function dispatchStateToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, dispatchStateToProps)(CommentBox);
+export default connect(null, dispatchStateToProps)(requireAuth(CommentBox));
