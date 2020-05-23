@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveComment, fetchCommentsThunk, changeAuth } from "actions";
-import fetchCommentsAPI from "utils/api";
+import {
+	saveComment,
+	fetchCommentsThunk,
+	fetchComments,
+	changeAuth,
+} from "actions";
 import CommentList from "components/CommentList";
 import requireAuth from "components/requireAuth";
 
@@ -81,7 +85,7 @@ class CommentBox extends Component {
 function dispatchStateToProps(dispatch) {
 	return {
 		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
-		boundFetchComments: () => dispatch(fetchCommentsThunk()),
+		boundFetchComments: () => dispatch(fetchComments()),
 		boundChangeAuth: (auth) => dispatch(changeAuth(auth)),
 	};
 }
