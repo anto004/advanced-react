@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxPromise from "redux-promise";
+import reduxThunk from "redux-thunk";
 import reducers from "reducers"; // This is from index.js
 
 // Stateless function
@@ -15,7 +16,7 @@ export default ({ children, initialState = {} }) => {
 	const store = createStore(
 		reducers,
 		initialState,
-		composeEnhancers(applyMiddleware(reduxPromise))
+		composeEnhancers(applyMiddleware(reduxThunk))
 	);
 
 	// console.log(store.getState());

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveComment, fetchComments, changeAuth } from "actions";
+import { saveComment, fetchCommentsThunk, changeAuth } from "actions";
 import fetchCommentsAPI from "utils/api";
 import CommentList from "components/CommentList";
 import requireAuth from "components/requireAuth";
@@ -35,14 +35,7 @@ class CommentBox extends Component {
 
 	handleFetchComments = () => {
 		const { boundFetchComments } = this.props;
-
-		// API request
-		fetchCommentsAPI().then((results) => {
-			if (results) {
-				// Dipatch an action when api return results
-				boundFetchComments(results);
-			}
-		});
+		boundFetchComments();
 	};
 
 	authenticateUser(auth) {
@@ -54,7 +47,6 @@ class CommentBox extends Component {
 	render() {
 		const { comment } = this.state;
 		const { isLoggedIn } = this.props;
-		console.log("isLoggedIn:", isLoggedIn);
 
 		// TODO: Create a HOC Log In button
 		return !isLoggedIn ? (
@@ -89,7 +81,7 @@ class CommentBox extends Component {
 function dispatchStateToProps(dispatch) {
 	return {
 		boundSaveComment: (id, comment) => dispatch(saveComment(id, comment)),
-		boundFetchComments: (comments) => dispatch(fetchComments(comments)),
+		boundFetchComments: () => dispatch(fetchCommentsThunk()),
 		boundChangeAuth: (auth) => dispatch(changeAuth(auth)),
 	};
 }
